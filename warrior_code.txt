@@ -1,1 +1,3 @@
 Vue js demo
+Using JavaScript Expressions
+{{ number + 1 }}
