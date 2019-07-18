@@ -14,8 +14,20 @@
           <div>{{arrayData.firstName}} {{index}}</div>
       </div>
       <div v-for="(arrayData,index) in array2" class="list new">
-          <div @click="getAll(arrayData,index)">{{arrayData.firstName}}</div>
+          <div @click="getAll(arrayData,index)">rabindra</div>
       </div>
+
+      <div v-for="val in heroes">
+          {{val.name}} --- {{val.franchise}}
+      </div>
+      <button type="button" @click="getAllFilter">Value change</button>
+      <h1 v-if="divshow">Hi i am heigh is {{divHeight}}</h1>
+      <div  ref="heightcal">
+       <h1> rabindra singh</h1>
+        <h1> rabindra singh</h1>
+         <h1> rabindra singh</h1>
+      </div>
+      <button type="button" @click="getheight">Value change</button>
   </div>
 </template>
 
@@ -24,6 +36,8 @@
   export default{
     data(){
       return{
+        divshow:false,
+        divHeight : 0,
         myArrayObj: [
           {
             firstName: 'rabindra',
@@ -31,7 +45,7 @@
             age: 30
           },
           {
-            firstName: 'vasudev',
+            firstName: '',
             lastName : 'singh',
             age: 30
           },
@@ -47,7 +61,13 @@
              lastName : 'yadav',
              age: 25
           }
-        ]
+        ],
+        heroes : [
+              {name: 'Batman', franchise: 'DC'},
+              {name: 'Ironman', franchise: ''},
+              {name: 'Thor', franchise: ''},
+              {name: 'Superman', franchise: 'DC'}
+            ]
       }
     },
     computed:{
@@ -59,17 +79,31 @@
       }
     },
     methods:{
-      getAll(allVal,index){
-        for(let i = 0; i< this.myArrayObj.length; i++){
-          if(this.myArrayObj[i].firstName == allVal.firstName ){
-            console.log("YES");
-            return this.myArrayObj.splice(this.myArrayObj[i],1);
-          }
-          else{
-             console.log("No");
-            return this.myArrayObj.push(allVal)
-          }
+     getheight(){
+       this.divHeight= this.$refs.heightcal.clientHeight;
+        if(this.divHeight > 100){
+          this.divshow = true
         }
+       console.log("height is",this.divHeight)
+     },
+     getAllFilter(){
+      /*var marvelHeroes =  this.heroes.filter(function(hero) {
+          return hero.franchise == "";
+        });
+        return this.heroes*/
+
+         for (var i in this.heroes) {
+           if (this.heroes[i].franchise == '') {
+              this.heroes[i].franchise = 'rabindra';
+              break; //Stop this loop, we found it!
+           }
+         }
+     },
+      getAll(){
+        var matchingKeys = this.myArrayObj.filter(function(key){ 
+          return age <30
+        })
+        console.log(matchingKeys)
       },
       updateMsg:function(){
         //this.$store.dispatch('updateMessageAction1')
@@ -79,6 +113,7 @@
       }
     },
     mounted(){
+      this.getheight();
       EventBus.$on("EmittedData",data =>{
         this.title=data;
       })
