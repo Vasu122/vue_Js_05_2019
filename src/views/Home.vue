@@ -1,4 +1,4 @@
-<template>
+V <template>
   <div>
     <h1>{{title}}</h1>
     <button type="button" v-on:click="updateMsg">Update state</button>
@@ -6,12 +6,13 @@
     <button type="button" v-on:click="loginMsg"> Login Change </button>
     <ul>
       <li v-for="user in getUser" v-bind:key="user.id">
-        {{user.name}}
+        <span>{{user.name}}</span>
       </li>
     </ul>
 
       <div v-for="(arrayData,index) in myArrayObj" class="list">
-          <div>{{arrayData.firstName}} {{index}}</div>
+          <span>{{arrayData.firstName}} {{index}}</span>
+          <button type="button">{{index}}</button>
       </div>
       <div v-for="(arrayData,index) in array2" class="list new">
           <div @click="getAll(arrayData,index)">rabindra</div>
@@ -28,16 +29,35 @@
          <h1> rabindra singh</h1>
       </div>
       <button type="button" @click="getheight">Value change</button>
+
+
+      <component v-bind:is="component">
+        <h2 slot="link2"> Side bar link 21</h2>
+        <h3 slot="link3"> Side bar link 31</h3>
+      </component>
+      <button type="button" @click="component='side-bar'">
+        side bar show
+      </button>
+      <button type="button"  @click="component='sticky'">
+          sticky show
+      </button>
   </div>
 </template>
 
 <script>
+  import sideBar from './sidebar';
+  import sticky from './sticky';
   import {EventBus} from '../main.js';
   export default{
+  components:{
+    'side-bar' : sideBar,
+    'sticky' : sticky
+  },
     data(){
       return{
         divshow:false,
         divHeight : 0,
+        component : 'side-bar',
         myArrayObj: [
           {
             firstName: 'rabindra',
@@ -100,7 +120,7 @@
          }
      },
       getAll(){
-        var matchingKeys = this.myArrayObj.filter(function(key){ 
+        var matchingKeys = this.myArrayObj.filter(function(key){
           return age <30
         })
         console.log(matchingKeys)
@@ -122,11 +142,28 @@
 </script>
 
 <style lang="scss">
-
+  @import '../assets/scss/variable';
   .list{
     padding: 10px;
     background:red;
     margin:3px 0;
     cursor:pointer;
+    span{
+      color:green;
+    }
+    button{
+    float:right;
+    padding:5px 20px;
+     border: 1px solid $green;
+     background:$green;
+     color: $white;
+     cursor:pointer;
+     -webkit-transition: all 0.5s;
+     transition: all 0.5s;
+     &:hover{
+       background: $black;
+       border: 1px solid $black;
+     }
+    }
   }
 </style>

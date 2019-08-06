@@ -19,11 +19,17 @@
       </ul>
       <span>Checked names: {{ arrayListCheck }}</span>
       <button type="button"  @click="CheckdeleteData(arrayListCheck)">selectCheckbox</button>
+
+      <image-slider></image-slider>
   </div>
 </template>
-
+ 
 <script>
+ import slider from './slider.vue';
   export default{
+   components:{
+    "image-slider":slider
+    },
     data(){
       return{
         arrayListCheck:[],

@@ -1,5 +1,5 @@
 <template>
-  <div v-list:cyan=" 'wider' " style="padding:30px;">
+  <!--<div v-list:cyan=" 'wider' " style="padding:30px;">
     <h2> Show Blog </h2>
       <div v-for="blog in blogs">
           <h3>{{ blog.id  | toAddVal }}</h3>
@@ -7,7 +7,8 @@
           <h4 v-format>{{ blog.title }}</h4></router-link>
           <h5>{{ blog.body}}</h5>
       </div>
-  </div>
+  </div>-->
+  <button type="button" @click="fetchData"> get data</button>
 </template>
 <script>
   import FiltersMixin from '../mixin/filters';
@@ -22,7 +23,13 @@
       }
     },
     methods:{
-
+      /*async function fetchData(){
+       var abc= this.$http.get("https://jsonplaceholder.typicode.com/posts").
+            then(function(data){
+                this.blogs=data.body.slice(0,5)
+            });
+            console.log("abc is ",abc);
+      }*/
     },
     created(){
       this.$http.get("https://jsonplaceholder.typicode.com/posts").

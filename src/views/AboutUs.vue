@@ -17,13 +17,20 @@
         <p v-if="nocontent12">No Search Item Here...</p>
       </ul>
     </form>
+
+    <image-slider :aboutUsImage="aboutUsImg"></image-slider>
   </div>
 </template>
 
 <script>
+import slider from './slider.vue';
   export default{
+  components:{
+    "image-slider":slider
+    },
     data(){
       return{
+       aboutUsImg:['5.png','6.jpg','7.jpg','8.jpg','9.jpg'],
         nocontent12:false,
         searchString: "",
         articles:[
