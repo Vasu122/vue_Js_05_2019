@@ -17,7 +17,7 @@
         <p v-if="nocontent12">No Search Item Here...</p>
       </ul>
     </form>
-
+    <button type="button" @click="fetchData"> Asynchronous button</button>
     <image-slider :aboutUsImage="aboutUsImg"></image-slider>
   </div>
 </template>
@@ -83,6 +83,23 @@ import slider from './slider.vue';
           }
           });
         return articles_array
+      }
+    },
+    methods:{
+       fetchData(){
+        this.$http.get('https://jsonplaceholder.typicode.com/todos/1').then(function(data){
+          console.log("data is ", data.body.title);
+          window.bus.$emit('dataFromAboutUs', data.body.title)
+
+ //          window.bus.$emit('variablename', response);
+ // mounted(){
+ //      window.bus.$on('variablename', list => {
+ //       ab.push(list);
+ //      });
+ //    },
+
+    
+        })
       }
     }
   }

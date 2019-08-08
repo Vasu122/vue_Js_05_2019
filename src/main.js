@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import Routes from './routes/routes'
-
+import babelPolyfill from 'babel-polyfill'
 import Student from './Student.vue'  //import
 
 Vue.component("studentNew",Student)  //define
