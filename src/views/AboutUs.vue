@@ -17,9 +17,32 @@
         <p v-if="nocontent12">No Search Item Here...</p>
       </ul>
     </form>
+    <div v-loading="loading"></div>
+    <el-row :gutter="20">
+  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+  <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+</el-row>
     <button type="button" @click="fetchData"> Asynchronous button</button>
     <image-slider :aboutUsImage="aboutUsImg"></image-slider>
-  </div>
+  
+
+
+ <el-button type="text" @click="outerVisible = true">open the outer Dialog</el-button>
+  
+  <el-dialog title="Outer Dialog" :visible.sync="outerVisible">
+    <div slot="footer" class="dialog-footer">
+      <el-button @click="outerVisible = false">Cancel</el-button>
+      <el-button type="primary">open the inner Dialog</el-button>
+    </div>
+  </el-dialog>
+
+
+</div>
+
+
+
 </template>
 
 <script>
@@ -30,6 +53,9 @@ import slider from './slider.vue';
     },
     data(){
       return{
+       loading:false,
+       outerVisible: false,
+        innerVisible: false,
        aboutUsImg:['5.png','6.jpg','7.jpg','8.jpg','9.jpg'],
         nocontent12:false,
         searchString: "",
@@ -87,8 +113,10 @@ import slider from './slider.vue';
     },
     methods:{
        fetchData(){
+        this.loading = true
         this.$http.get('https://jsonplaceholder.typicode.com/todos/1').then(function(data){
           console.log("data is ", data.body.title);
+          this.loading = false
           window.bus.$emit('dataFromAboutUs', data.body.title)
 
  //          window.bus.$emit('variablename', response);
@@ -135,4 +163,42 @@ import slider from './slider.vue';
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+ .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+  .bg-purple {
+    background: #d3dce6;
+  }
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
 </style>
