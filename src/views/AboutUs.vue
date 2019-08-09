@@ -24,6 +24,12 @@
   <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
   <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
 </el-row>
+      <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tab-pane label="User" name="first">User</el-tab-pane>
+        <el-tab-pane label="Config" name="second">Config</el-tab-pane>
+        <el-tab-pane label="Role" name="third">Role</el-tab-pane>
+        <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
+      </el-tabs>
     <button type="button" @click="fetchData"> Asynchronous button</button>
     <image-slider :aboutUsImage="aboutUsImg"></image-slider>
   
@@ -57,6 +63,8 @@ import slider from './slider.vue';
        outerVisible: false,
         innerVisible: false,
        aboutUsImg:['5.png','6.jpg','7.jpg','8.jpg','9.jpg'],
+        activeName: 'first',
+        aboutUsImg:['5.png','6.jpg','7.jpg','8.jpg','9.jpg'],
         nocontent12:false,
         searchString: "",
         articles:[
@@ -112,6 +120,9 @@ import slider from './slider.vue';
       }
     },
     methods:{
+      handleClick(tab, event) {
+        console.log(tab, event);
+      },
        fetchData(){
         this.loading = true
         this.$http.get('https://jsonplaceholder.typicode.com/todos/1').then(function(data){

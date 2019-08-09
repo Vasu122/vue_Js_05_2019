@@ -15,6 +15,9 @@
     <li>
     <router-link to = "/ShowBlog"> ShowBlog </router-link>
     </li>
+    <li>
+    <router-link to = "/profile"> Profile </router-link>
+    </li>
   </ul>
 </template>
 
